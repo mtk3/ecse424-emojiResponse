@@ -1,37 +1,26 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.ComponentOrientation;
-import java.awt.Font;
-import java.awt.Graphics;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.sql.Time;
-import java.text.ParseException;
 
 import javax.imageio.ImageIO;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
-import javax.swing.JOptionPane;
-import javax.swing.text.MaskFormatter;
 import javax.swing.JPanel;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-
+import java.awt.CardLayout;
 import javax.swing.SwingConstants;
+import javax.swing.JButton;
+import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class AudienceView extends JFrame {
 	public AudienceView() throws IOException {
@@ -159,10 +148,82 @@ public class AudienceView extends JFrame {
 		
 		
 		// bottom panel
-		JPanel Bottom = new JPanel();
-		Bottom.setBackground(new Color(0, 0, 0));
-		Bottom.setPreferredSize(new Dimension(width, height/10));
+		JPanel Bottom = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+		Bottom.setBackground(new Color(0, 0, 0, 255));
+		Bottom.setPreferredSize(new Dimension(width, height/10 + height/6));
 		getContentPane().add(Bottom, BorderLayout.SOUTH);
+		
+		// emoji selection pane
+		JLayeredPane emojiPane = new JLayeredPane();
+		emojiPane.setOpaque(true);
+		emojiPane.setBackground(new Color(102, 255, 0, 255));
+		emojiPane.setPreferredSize(new Dimension(width, height/6));
+		Bottom.add(emojiPane);	
+		emojiPane.setLayout(new CardLayout(0, 0));
+		
+		
+		// gender selection pane
+		JPanel genderPane = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+		genderPane.setOpaque(true);
+		genderPane.setBackground(new Color(255, 0, 255, 255));
+		genderPane.setPreferredSize(new Dimension(width, height/6));
+		emojiPane.add(genderPane, "name_114328545154100");
+		emojiPane.moveToFront(genderPane);
+		
+		BufferedImage gender1 = ImageIO.read(new File("./images" + "/gender/person" + emoji + imageName));
+		Image scaledGender1 = gender1.getScaledInstance(width/9, height/7, Image.SCALE_SMOOTH);
+		ImageIcon gender1Icon = new ImageIcon(scaledGender1);
+		JLabel gender1Label = new JLabel();
+		gender1Label.setIcon(gender1Icon);
+		gender1Label.setText("User");
+		gender1Label.setHorizontalTextPosition(JLabel.CENTER);
+		gender1Label.setVerticalTextPosition(JLabel.BOTTOM);
+		gender1Label.setPreferredSize(new Dimension(width/9, height/6));
+		genderPane.add(gender1Label);
+		
+		BufferedImage gender2 = ImageIO.read(new File("./images" + "/gender/man" + emoji + imageName));
+		Image scaledGender2 = gender2.getScaledInstance(width/9, height/7, Image.SCALE_SMOOTH);
+		ImageIcon gender2Icon = new ImageIcon(scaledGender2);
+		JLabel gender2Label = new JLabel();
+		gender2Label.setIcon(gender2Icon);
+		gender2Label.setText("User");
+		gender2Label.setHorizontalTextPosition(JLabel.CENTER);
+		gender2Label.setVerticalTextPosition(JLabel.BOTTOM);
+		gender2Label.setPreferredSize(new Dimension(width/9, height/6));
+		genderPane.add(gender2Label);
+		
+		BufferedImage gender3 = ImageIO.read(new File("./images" + "/gender/woman" + emoji + imageName));
+		Image scaledGender3 = gender3.getScaledInstance(width/9, height/7, Image.SCALE_SMOOTH);
+		ImageIcon gender3Icon = new ImageIcon(scaledGender3);
+		JLabel gender3Label = new JLabel();
+		gender3Label.setIcon(gender3Icon);
+		gender3Label.setText("User");
+		gender3Label.setHorizontalTextPosition(JLabel.CENTER);
+		gender3Label.setVerticalTextPosition(JLabel.BOTTOM);
+		gender3Label.setPreferredSize(new Dimension(width/9, height/6));
+		genderPane.add(gender3Label);
+		
+				
+		
+		// skin tone selection pane
+		JPanel skinTonePane = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+		skinTonePane.setOpaque(true);
+		skinTonePane.setBackground(new Color(0, 255, 255, 255));
+		skinTonePane.setPreferredSize(new Dimension(width, height/6));
+		emojiPane.add(skinTonePane, "name_114328557103100");
+		emojiPane.moveToFront(skinTonePane);
+		
+		BufferedImage skinTone1 = ImageIO.read(new File("./images" + gender + emoji + imageName));
+		Image scaledSkinTone1 = skinTone1.getScaledInstance(width/9, height/7, Image.SCALE_SMOOTH);
+		ImageIcon skinTone1Icon = new ImageIcon(scaledSkinTone1);
+		JLabel skinTone1Label = new JLabel();
+		skinTone1Label.setIcon(skinTone1Icon);
+		skinTone1Label.setText("User");
+		skinTone1Label.setHorizontalTextPosition(JLabel.CENTER);
+		skinTone1Label.setVerticalTextPosition(JLabel.BOTTOM);
+		skinTone1Label.setPreferredSize(new Dimension(width/9, height/6));
+		skinTonePane.add(skinTone1Label);
+		
 		
 		// bottom toolbar
 		BufferedImage bottomBar = ImageIO.read(new File("./images/bottomBar.png"));
@@ -174,15 +235,55 @@ public class AudienceView extends JFrame {
 		
 		
 		
+		
+		
+		
+		// emoji Selection Buttons
+		JPanel emojiSelectionButtons = new JPanel();
+		emojiSelectionButtons.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		emojiSelectionButtons.setSize(width/12,height/12);
+		getContentPane().add(emojiSelectionButtons, BorderLayout.WEST);
+		emojiSelectionButtons.setLayout(new GridLayout(3, 1, 0, 0));
+				
+		JButton btnNewButton = new JButton("Emoji");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				//emojiPane.moveToFront(emotionPane);
+				getContentPane().repaint();
+			}
+		});
+		emojiSelectionButtons.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Skin Tone");
+		btnNewButton_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				emojiPane.moveToFront(skinTonePane);
+				Bottom.repaint();
+				emojiPane.repaint();
+			}
+		});
+		emojiSelectionButtons.add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("Gender");
+		btnNewButton_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				emojiPane.moveToFront(genderPane);
+				Bottom.repaint();
+				emojiPane.repaint();
+			}
+		});
+		emojiSelectionButtons.add(btnNewButton_2);
+		
+		
+		
 		// gender selection pane
-		JLayeredPane genderPane = new JLayeredPane();
-		genderPane.setBackground(new Color(0, 0, 0));
+		/*JLayeredPane genderPane = new JLayeredPane();
+		genderPane.setBackground(new Color(102, 255, 0));
 		genderPane.setPreferredSize(new Dimension(width, height/10));
-		getContentPane().add(genderPane, BorderLayout.SOUTH);
-		
-		
-		
-		
+		getContentPane().add(genderPane);*/
 		
 		// skin tone selection
 		
@@ -194,5 +295,4 @@ public class AudienceView extends JFrame {
 		
 	}
 	
-		
 }
