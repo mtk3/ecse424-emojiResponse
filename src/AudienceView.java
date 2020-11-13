@@ -23,6 +23,7 @@ import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 import javax.swing.JPanel;
@@ -155,7 +156,8 @@ public class AudienceView extends JFrame {
 		person8Label.setPreferredSize(new Dimension(width/9, height/6));
 		Top.add(person8Label);
 		
-				
+		
+		
 		// bottom panel
 		JPanel Bottom = new JPanel();
 		Bottom.setBackground(new Color(0, 0, 0));
@@ -169,6 +171,25 @@ public class AudienceView extends JFrame {
 		JLabel bottomBarLabel = new JLabel(imageIcon);
 		bottomBarLabel.setSize(200, 80);
 		Bottom.add(bottomBarLabel);
+		
+		
+		
+		// gender selection pane
+		JLayeredPane genderPane = new JLayeredPane();
+		genderPane.setBackground(new Color(0, 0, 0));
+		genderPane.setPreferredSize(new Dimension(width, height/10));
+		getContentPane().add(genderPane, BorderLayout.SOUTH);
+		
+		
+		
+		
+		
+		// skin tone selection
+		
+		// emoji selection
+		
+		
+		
 		
 		
 	}
