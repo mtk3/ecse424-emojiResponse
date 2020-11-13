@@ -161,8 +161,9 @@ public class AudienceView extends JFrame {
 		emojiPane.setOpaque(true);
 		emojiPane.setBackground(new Color(102, 255, 0, 255));
 		emojiPane.setPreferredSize(new Dimension(width, height/6));
-		Bottom.add(emojiPane);	
+		Bottom.add(emojiPane);
 		emojiPane.setLayout(new CardLayout(0, 0));
+		CardLayout emojiPaneCardLayout = (CardLayout)emojiPane.getLayout();
 		
 		
 		// gender selection pane
@@ -170,7 +171,7 @@ public class AudienceView extends JFrame {
 		genderPane.setOpaque(true);
 		genderPane.setBackground(new Color(255, 0, 255, 255));
 		genderPane.setPreferredSize(new Dimension(width, height/6));
-		emojiPane.add(genderPane, "name_114328545154100");
+		emojiPane.add(genderPane, "genderPane");
 		emojiPane.moveToFront(genderPane);
 		
 		BufferedImage gender1 = ImageIO.read(new File("./images" + "/gender/person" + emoji + imageName));
@@ -213,7 +214,7 @@ public class AudienceView extends JFrame {
 		skinTonePane.setOpaque(true);
 		skinTonePane.setBackground(new Color(0, 255, 255, 255));
 		skinTonePane.setPreferredSize(new Dimension(width, height/6));
-		emojiPane.add(skinTonePane, "name_114328557103100");
+		emojiPane.add(skinTonePane, "skinTonePane");
 		emojiPane.moveToFront(skinTonePane);
 		
 		BufferedImage skinTone1 = ImageIO.read(new File("./images" + gender + emoji + imageName));
@@ -226,6 +227,26 @@ public class AudienceView extends JFrame {
 		skinTone1Label.setVerticalTextPosition(JLabel.BOTTOM);
 		skinTone1Label.setPreferredSize(new Dimension(width/9, height/6));
 		skinTonePane.add(skinTone1Label);
+		
+		
+		// emotion selection pane
+		JPanel emotionPane = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+		emotionPane.setOpaque(true);
+		emotionPane.setBackground(Color.RED);
+		emotionPane.setPreferredSize(new Dimension(width, height/6));
+		emojiPane.add(emotionPane, "emotionPane");
+		emojiPane.moveToFront(emotionPane);
+		
+		BufferedImage emotion1 = ImageIO.read(new File("./images" + gender + emoji + imageName));
+		Image scaledEmotion1 = emotion1.getScaledInstance(width/9, height/7, Image.SCALE_SMOOTH);
+		ImageIcon emotion1Icon = new ImageIcon(scaledEmotion1);
+		JLabel emotion1Label = new JLabel();
+		emotion1Label.setIcon(emotion1Icon);
+		emotion1Label.setText("User");
+		emotion1Label.setHorizontalTextPosition(JLabel.CENTER);
+		emotion1Label.setVerticalTextPosition(JLabel.BOTTOM);
+		emotion1Label.setPreferredSize(new Dimension(width/9, height/6));
+		emotionPane.add(emotion1Label);
 		
 		
 		// bottom toolbar
@@ -245,12 +266,11 @@ public class AudienceView extends JFrame {
 		getContentPane().add(emojiSelectionButtons, BorderLayout.WEST);
 		emojiSelectionButtons.setLayout(new GridLayout(3, 1, 0, 0));
 				
-		JButton btnNewButton = new JButton("Emoji");
+		JButton btnNewButton = new JButton("Emotion");
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//emojiPane.moveToFront(emotionPane);
-				getContentPane().repaint();
+				emojiPaneCardLayout.show(emojiPane, "emotionPane");
 			}
 		});
 		emojiSelectionButtons.add(btnNewButton);
@@ -259,11 +279,7 @@ public class AudienceView extends JFrame {
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				emojiPane.moveToFront(skinTonePane);
-				genderPane.setVisible(false);
-				skinTonePane.setVisible(true);
-				Bottom.repaint();
-				emojiPane.repaint();
+				emojiPaneCardLayout.show(emojiPane, "skinTonePane");
 			}
 		});
 		emojiSelectionButtons.add(btnNewButton_1);
@@ -272,11 +288,7 @@ public class AudienceView extends JFrame {
 		btnNewButton_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				emojiPane.moveToFront(genderPane);
-				skinTonePane.setVisible(false);
-				genderPane.setVisible(true);
-				Bottom.repaint();
-				emojiPane.repaint();
+				emojiPaneCardLayout.show(emojiPane, "genderPane");
 			}
 		});
 		emojiSelectionButtons.add(btnNewButton_2);
