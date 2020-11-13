@@ -26,17 +26,19 @@ public class AudienceView extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	// variables
+	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	int height = screenSize.height;
+	int width = screenSize.width;
+	
+	String gender = "./images/emoji/person";
+	String emotion = "/default/person";
+	String skinToneNum = "0.png";
 
 	public AudienceView() throws IOException {
 		
-		// variables
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		int height = screenSize.height;
-		int width = screenSize.width;
 		
-		String gender = "./images/emoji/person";
-		String emoji = "/default/person";
-		String skinToneNum = "0.png";
 				
 		
 		// background setup
@@ -59,7 +61,7 @@ public class AudienceView extends JFrame {
 		
 		// top images
 		// User image
-		BufferedImage person1 = ImageIO.read(new File(gender + emoji + skinToneNum));
+		BufferedImage person1 = ImageIO.read(new File(gender + emotion + skinToneNum));
 		Image scaledPerson1 = person1.getScaledInstance(width/9, height/7, Image.SCALE_SMOOTH);
 		ImageIcon person1Icon = new ImageIcon(scaledPerson1);
 		JLabel person1Label = new JLabel();
@@ -71,7 +73,7 @@ public class AudienceView extends JFrame {
 		Top.add(person1Label);
 		
 		// Classmate images
-		BufferedImage person2 = ImageIO.read(new File(gender + emoji + skinToneNum));
+		BufferedImage person2 = ImageIO.read(new File(gender + emotion + skinToneNum));
 		Image scaledPerson2 = person2.getScaledInstance(width/9, height/7, Image.SCALE_SMOOTH);
 		ImageIcon person2Icon = new ImageIcon(scaledPerson2);
 		JLabel person2Label = new JLabel();
@@ -82,7 +84,7 @@ public class AudienceView extends JFrame {
 		person2Label.setPreferredSize(new Dimension(width/8, height/6));
 		Top.add(person2Label);
 		
-		BufferedImage person3 = ImageIO.read(new File(gender + emoji + skinToneNum));
+		BufferedImage person3 = ImageIO.read(new File(gender + emotion + skinToneNum));
 		Image scaledPerson3 = person3.getScaledInstance(width/9, height/7, Image.SCALE_SMOOTH);
 		ImageIcon person3Icon = new ImageIcon(scaledPerson3);
 		JLabel person3Label = new JLabel();
@@ -93,7 +95,7 @@ public class AudienceView extends JFrame {
 		person3Label.setPreferredSize(new Dimension(width/8, height/6));
 		Top.add(person3Label);
 		
-		BufferedImage person4 = ImageIO.read(new File(gender + emoji + skinToneNum));
+		BufferedImage person4 = ImageIO.read(new File(gender + emotion + skinToneNum));
 		Image scaledPerson4 = person4.getScaledInstance(width/9, height/7, Image.SCALE_SMOOTH);
 		ImageIcon person4Icon = new ImageIcon(scaledPerson4);
 		JLabel person4Label = new JLabel();
@@ -104,7 +106,7 @@ public class AudienceView extends JFrame {
 		person4Label.setPreferredSize(new Dimension(width/8, height/6));
 		Top.add(person4Label);
 		
-		BufferedImage person5 = ImageIO.read(new File(gender + emoji + skinToneNum));
+		BufferedImage person5 = ImageIO.read(new File(gender + emotion + skinToneNum));
 		Image scaledPerson5 = person5.getScaledInstance(width/9, height/7, Image.SCALE_SMOOTH);
 		ImageIcon person5Icon = new ImageIcon(scaledPerson5);
 		JLabel person5Label = new JLabel();
@@ -115,7 +117,7 @@ public class AudienceView extends JFrame {
 		person5Label.setPreferredSize(new Dimension(width/8, height/6));
 		Top.add(person5Label);
 		
-		BufferedImage person6 = ImageIO.read(new File(gender + emoji + skinToneNum));
+		BufferedImage person6 = ImageIO.read(new File(gender + emotion + skinToneNum));
 		Image scaledPerson6 = person6.getScaledInstance(width/9, height/7, Image.SCALE_SMOOTH);
 		ImageIcon person6Icon = new ImageIcon(scaledPerson6);
 		JLabel person6Label = new JLabel();
@@ -126,7 +128,7 @@ public class AudienceView extends JFrame {
 		person6Label.setPreferredSize(new Dimension(width/8, height/6));
 		Top.add(person6Label);
 		
-		BufferedImage person7 = ImageIO.read(new File(gender + emoji + skinToneNum));
+		BufferedImage person7 = ImageIO.read(new File(gender + emotion + skinToneNum));
 		Image scaledPerson7 = person7.getScaledInstance(width/9, height/7, Image.SCALE_SMOOTH);
 		ImageIcon person7Icon = new ImageIcon(scaledPerson7);
 		JLabel person7Label = new JLabel();
@@ -137,7 +139,7 @@ public class AudienceView extends JFrame {
 		person7Label.setPreferredSize(new Dimension(width/8, height/6));
 		Top.add(person7Label);
 		
-		BufferedImage person8 = ImageIO.read(new File(gender + emoji + skinToneNum));
+		BufferedImage person8 = ImageIO.read(new File(gender + emotion + skinToneNum));
 		Image scaledPerson8 = person8.getScaledInstance(width/9, height/7, Image.SCALE_SMOOTH);
 		ImageIcon person8Icon = new ImageIcon(scaledPerson8);
 		JLabel person8Label = new JLabel();
@@ -174,7 +176,7 @@ public class AudienceView extends JFrame {
 		emojiPane.add(genderPane, "genderPane");
 		emojiPane.moveToFront(genderPane);
 		
-		BufferedImage gender1 = ImageIO.read(new File("./images/emoji/person" + emoji + skinToneNum));
+		BufferedImage gender1 = ImageIO.read(new File("./images/emoji/person" + emotion + skinToneNum));
 		Image scaledGender1 = gender1.getScaledInstance(width/9, height/7, Image.SCALE_SMOOTH);
 		ImageIcon gender1Icon = new ImageIcon(scaledGender1);
 		JLabel gender1Label = new JLabel();
@@ -182,9 +184,16 @@ public class AudienceView extends JFrame {
 		gender1Label.setHorizontalTextPosition(JLabel.CENTER);
 		gender1Label.setVerticalTextPosition(JLabel.BOTTOM);
 		gender1Label.setPreferredSize(new Dimension(width/9, height/6));
+		gender1Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				gender = "./images/emoji/person";
+				((JLabel) Top.getComponent(0)).setIcon(updateUserIcon());
+			}
+		});
 		genderPane.add(gender1Label);
 		
-		BufferedImage gender2 = ImageIO.read(new File("./images/emoji/man" + emoji + skinToneNum));
+		BufferedImage gender2 = ImageIO.read(new File("./images/emoji/man" + emotion + skinToneNum));
 		Image scaledGender2 = gender2.getScaledInstance(width/9, height/7, Image.SCALE_SMOOTH);
 		ImageIcon gender2Icon = new ImageIcon(scaledGender2);
 		JLabel gender2Label = new JLabel();
@@ -192,9 +201,17 @@ public class AudienceView extends JFrame {
 		gender2Label.setHorizontalTextPosition(JLabel.CENTER);
 		gender2Label.setVerticalTextPosition(JLabel.BOTTOM);
 		gender2Label.setPreferredSize(new Dimension(width/9, height/6));
+		gender2Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				gender = "./images/emoji/man";
+				((JLabel) Top.getComponent(0)).setIcon(updateUserIcon());
+			}
+		});
 		genderPane.add(gender2Label);
 		
-		BufferedImage gender3 = ImageIO.read(new File("./images/emoji/woman" + emoji + skinToneNum));
+		
+		BufferedImage gender3 = ImageIO.read(new File(gender + emotion + skinToneNum));
 		Image scaledGender3 = gender3.getScaledInstance(width/9, height/7, Image.SCALE_SMOOTH);
 		ImageIcon gender3Icon = new ImageIcon(scaledGender3);
 		JLabel gender3Label = new JLabel();
@@ -202,6 +219,13 @@ public class AudienceView extends JFrame {
 		gender3Label.setHorizontalTextPosition(JLabel.CENTER);
 		gender3Label.setVerticalTextPosition(JLabel.BOTTOM);
 		gender3Label.setPreferredSize(new Dimension(width/9, height/6));
+		gender3Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				gender = "./images/emoji/woman";
+				((JLabel) Top.getComponent(0)).setIcon(updateUserIcon());
+			}
+		});
 		genderPane.add(gender3Label);
 		
 				
@@ -214,7 +238,7 @@ public class AudienceView extends JFrame {
 		emojiPane.add(skinTonePane, "skinTonePane");
 		emojiPane.moveToFront(skinTonePane);
 		
-		BufferedImage skinTone0 = ImageIO.read(new File(gender + emoji + "0.png"));
+		BufferedImage skinTone0 = ImageIO.read(new File(gender + emotion + "0.png"));
 		Image scaledSkinTone0 = skinTone0.getScaledInstance(width/9, height/7, Image.SCALE_SMOOTH);
 		ImageIcon skinTone0Icon = new ImageIcon(scaledSkinTone0);
 		JLabel skinTone0Label = new JLabel();
@@ -222,9 +246,16 @@ public class AudienceView extends JFrame {
 		skinTone0Label.setHorizontalTextPosition(JLabel.CENTER);
 		skinTone0Label.setVerticalTextPosition(JLabel.BOTTOM);
 		skinTone0Label.setPreferredSize(new Dimension(width/9, height/6));
+		skinTone0Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				skinToneNum = "0.png";
+				((JLabel) Top.getComponent(0)).setIcon(updateUserIcon());
+			}
+		});
 		skinTonePane.add(skinTone0Label);
 		
-		BufferedImage skinTone1 = ImageIO.read(new File(gender + emoji + "1.png"));
+		BufferedImage skinTone1 = ImageIO.read(new File(gender + emotion + "1.png"));
 		Image scaledSkinTone1 = skinTone1.getScaledInstance(width/9, height/7, Image.SCALE_SMOOTH);
 		ImageIcon skinTone1Icon = new ImageIcon(scaledSkinTone1);
 		JLabel skinTone1Label = new JLabel();
@@ -232,9 +263,16 @@ public class AudienceView extends JFrame {
 		skinTone1Label.setHorizontalTextPosition(JLabel.CENTER);
 		skinTone1Label.setVerticalTextPosition(JLabel.BOTTOM);
 		skinTone1Label.setPreferredSize(new Dimension(width/9, height/6));
+		skinTone1Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				skinToneNum = "1.png";
+				((JLabel) Top.getComponent(0)).setIcon(updateUserIcon());
+			}
+		});
 		skinTonePane.add(skinTone1Label);
 		
-		BufferedImage skinTone2 = ImageIO.read(new File(gender + emoji + "2.png"));
+		BufferedImage skinTone2 = ImageIO.read(new File(gender + emotion + "2.png"));
 		Image scaledSkinTone2 = skinTone2.getScaledInstance(width/9, height/7, Image.SCALE_SMOOTH);
 		ImageIcon skinTone2Icon = new ImageIcon(scaledSkinTone2);
 		JLabel skinTone2Label = new JLabel();
@@ -242,9 +280,16 @@ public class AudienceView extends JFrame {
 		skinTone2Label.setHorizontalTextPosition(JLabel.CENTER);
 		skinTone2Label.setVerticalTextPosition(JLabel.BOTTOM);
 		skinTone2Label.setPreferredSize(new Dimension(width/9, height/6));
+		skinTone2Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				skinToneNum = "2.png";
+				((JLabel) Top.getComponent(0)).setIcon(updateUserIcon());
+			}
+		});
 		skinTonePane.add(skinTone2Label);
 		
-		BufferedImage skinTone3 = ImageIO.read(new File(gender + emoji + "3.png"));
+		BufferedImage skinTone3 = ImageIO.read(new File(gender + emotion + "3.png"));
 		Image scaledSkinTone3 = skinTone3.getScaledInstance(width/9, height/7, Image.SCALE_SMOOTH);
 		ImageIcon skinTone3Icon = new ImageIcon(scaledSkinTone3);
 		JLabel skinTone3Label = new JLabel();
@@ -252,9 +297,16 @@ public class AudienceView extends JFrame {
 		skinTone3Label.setHorizontalTextPosition(JLabel.CENTER);
 		skinTone3Label.setVerticalTextPosition(JLabel.BOTTOM);
 		skinTone3Label.setPreferredSize(new Dimension(width/9, height/6));
+		skinTone3Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				skinToneNum = "3.png";
+				((JLabel) Top.getComponent(0)).setIcon(updateUserIcon());
+			}
+		});
 		skinTonePane.add(skinTone3Label);
 		
-		BufferedImage skinTone4 = ImageIO.read(new File(gender + emoji + "4.png"));
+		BufferedImage skinTone4 = ImageIO.read(new File(gender + emotion + "4.png"));
 		Image scaledSkinTone4 = skinTone4.getScaledInstance(width/9, height/7, Image.SCALE_SMOOTH);
 		ImageIcon skinTone4Icon = new ImageIcon(scaledSkinTone4);
 		JLabel skinTone4Label = new JLabel();
@@ -262,9 +314,16 @@ public class AudienceView extends JFrame {
 		skinTone4Label.setHorizontalTextPosition(JLabel.CENTER);
 		skinTone4Label.setVerticalTextPosition(JLabel.BOTTOM);
 		skinTone4Label.setPreferredSize(new Dimension(width/9, height/6));
+		skinTone4Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				skinToneNum = "4.png";
+				((JLabel) Top.getComponent(0)).setIcon(updateUserIcon());
+			}
+		});
 		skinTonePane.add(skinTone4Label);
 		
-		BufferedImage skinTone5 = ImageIO.read(new File(gender + emoji + "5.png"));
+		BufferedImage skinTone5 = ImageIO.read(new File(gender + emotion + "5.png"));
 		Image scaledSkinTone5 = skinTone5.getScaledInstance(width/9, height/7, Image.SCALE_SMOOTH);
 		ImageIcon skinTone5Icon = new ImageIcon(scaledSkinTone5);
 		JLabel skinTone5Label = new JLabel();
@@ -272,6 +331,13 @@ public class AudienceView extends JFrame {
 		skinTone5Label.setHorizontalTextPosition(JLabel.CENTER);
 		skinTone5Label.setVerticalTextPosition(JLabel.BOTTOM);
 		skinTone5Label.setPreferredSize(new Dimension(width/9, height/6));
+		skinTone5Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				skinToneNum = "5.png";
+				((JLabel) Top.getComponent(0)).setIcon(updateUserIcon());
+			}
+		});
 		skinTonePane.add(skinTone5Label);
 				
 		
@@ -283,7 +349,7 @@ public class AudienceView extends JFrame {
 		emojiPane.add(emotionPane, "emotionPane");
 		emojiPane.moveToFront(emotionPane);
 		
-		BufferedImage emotion1 = ImageIO.read(new File(gender + emoji + skinToneNum));
+		BufferedImage emotion1 = ImageIO.read(new File(gender + emotion + skinToneNum));
 		Image scaledEmotion1 = emotion1.getScaledInstance(width/9, height/7, Image.SCALE_SMOOTH);
 		ImageIcon emotion1Icon = new ImageIcon(scaledEmotion1);
 		JLabel emotion1Label = new JLabel();
@@ -338,6 +404,25 @@ public class AudienceView extends JFrame {
 		});
 		emojiSelectionButtons.add(btnNewButton_2);
 		
+		JLabel lblQuestionPending = new JLabel("Question Pending");
+		getContentPane().add(lblQuestionPending, BorderLayout.EAST);
+			
 	}
+	
+	public ImageIcon updateUserIcon() {
+		
+		BufferedImage newBuffImage;
+		try {
+			newBuffImage = ImageIO.read(new File(gender + emotion + skinToneNum));
+			Image scaledImage = newBuffImage.getScaledInstance(width/9, height/7, Image.SCALE_SMOOTH);
+			ImageIcon newIcon = new ImageIcon(scaledImage);
+			return newIcon;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+				
+	}
+	
 	
 }
