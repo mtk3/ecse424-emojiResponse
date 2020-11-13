@@ -1,28 +1,32 @@
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-import java.awt.CardLayout;
-import javax.swing.SwingConstants;
-import javax.swing.JButton;
-import java.awt.GridLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class AudienceView extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public AudienceView() throws IOException {
 		
 		// variables
@@ -33,8 +37,7 @@ public class AudienceView extends JFrame {
 		String gender = "/gender/person";
 		String emoji = "/default";
 		String imageName = "/person.png";
-		
-		
+				
 		
 		// background setup
 		this.setSize(screenSize);
@@ -233,10 +236,7 @@ public class AudienceView extends JFrame {
 		bottomBarLabel.setSize(200, 80);
 		Bottom.add(bottomBarLabel);
 		
-		
-		
-		
-		
+
 		
 		// emoji Selection Buttons
 		JPanel emojiSelectionButtons = new JPanel();
@@ -260,6 +260,8 @@ public class AudienceView extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				emojiPane.moveToFront(skinTonePane);
+				genderPane.setVisible(false);
+				skinTonePane.setVisible(true);
 				Bottom.repaint();
 				emojiPane.repaint();
 			}
@@ -271,6 +273,8 @@ public class AudienceView extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				emojiPane.moveToFront(genderPane);
+				skinTonePane.setVisible(false);
+				genderPane.setVisible(true);
 				Bottom.repaint();
 				emojiPane.repaint();
 			}
