@@ -210,8 +210,7 @@ public class AudienceView extends JFrame {
 		});
 		genderPane.add(gender2Label);
 		
-		
-		BufferedImage gender3 = ImageIO.read(new File(gender + emotion + skinToneNum));
+		BufferedImage gender3 = ImageIO.read(new File("./images/emoji/woman" + emotion + skinToneNum));
 		Image scaledGender3 = gender3.getScaledInstance(width/9, height/7, Image.SCALE_SMOOTH);
 		ImageIcon gender3Icon = new ImageIcon(scaledGender3);
 		JLabel gender3Label = new JLabel();
@@ -349,7 +348,7 @@ public class AudienceView extends JFrame {
 		emojiPane.add(emotionPane, "emotionPane");
 		emojiPane.moveToFront(emotionPane);
 		
-		BufferedImage emotion1 = ImageIO.read(new File(gender + emotion + skinToneNum));
+		BufferedImage emotion1 = ImageIO.read(new File(gender + "/default/person" + skinToneNum));
 		Image scaledEmotion1 = emotion1.getScaledInstance(width/9, height/7, Image.SCALE_SMOOTH);
 		ImageIcon emotion1Icon = new ImageIcon(scaledEmotion1);
 		JLabel emotion1Label = new JLabel();
@@ -357,7 +356,99 @@ public class AudienceView extends JFrame {
 		emotion1Label.setHorizontalTextPosition(JLabel.CENTER);
 		emotion1Label.setVerticalTextPosition(JLabel.BOTTOM);
 		emotion1Label.setPreferredSize(new Dimension(width/9, height/6));
+		emotion1Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				emotion = "/default/person";
+				((JLabel) Top.getComponent(0)).setIcon(updateUserIcon());
+			}
+		});
 		emotionPane.add(emotion1Label);
+		
+		BufferedImage emotion2 = ImageIO.read(new File(gender + "/confused/shrugging" + skinToneNum));
+		Image scaledEmotion2 = emotion2.getScaledInstance(width/9, height/7, Image.SCALE_SMOOTH);
+		ImageIcon emotion2Icon = new ImageIcon(scaledEmotion2);
+		JLabel emotion2Label = new JLabel();
+		emotion2Label.setIcon(emotion2Icon);
+		emotion2Label.setHorizontalTextPosition(JLabel.CENTER);
+		emotion2Label.setVerticalTextPosition(JLabel.BOTTOM);
+		emotion2Label.setPreferredSize(new Dimension(width/9, height/6));
+		emotion2Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				emotion = "/confused/shrugging";
+				((JLabel) Top.getComponent(0)).setIcon(updateUserIcon());
+			}
+		});
+		emotionPane.add(emotion2Label);
+		
+		BufferedImage emotion3 = ImageIO.read(new File(gender + "/bored/bored" + skinToneNum));
+		Image scaledEmotion3 = emotion3.getScaledInstance(width/9, height/7, Image.SCALE_SMOOTH);
+		ImageIcon emotion3Icon = new ImageIcon(scaledEmotion3);
+		JLabel emotion3Label = new JLabel();
+		emotion3Label.setIcon(emotion3Icon);
+		emotion3Label.setHorizontalTextPosition(JLabel.CENTER);
+		emotion3Label.setVerticalTextPosition(JLabel.BOTTOM);
+		emotion3Label.setPreferredSize(new Dimension(width/9, height/6));
+		emotion3Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				emotion = "/bored/bored";
+				((JLabel) Top.getComponent(0)).setIcon(updateUserIcon());
+			}
+		});
+		emotionPane.add(emotion3Label);
+		
+		BufferedImage emotion4 = ImageIO.read(new File(gender + "/question/question" + skinToneNum));
+		Image scaledEmotion4 = emotion4.getScaledInstance(width/9, height/7, Image.SCALE_SMOOTH);
+		ImageIcon emotion4Icon = new ImageIcon(scaledEmotion4);
+		JLabel emotion4Label = new JLabel();
+		emotion4Label.setIcon(emotion4Icon);
+		emotion4Label.setHorizontalTextPosition(JLabel.CENTER);
+		emotion4Label.setVerticalTextPosition(JLabel.BOTTOM);
+		emotion4Label.setPreferredSize(new Dimension(width/9, height/6));
+		emotion4Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				emotion = "/question/question";
+				((JLabel) Top.getComponent(0)).setIcon(updateUserIcon());
+			}
+		});
+		emotionPane.add(emotion4Label);
+		
+		BufferedImage emotion5 = ImageIO.read(new File(gender + "/louder/louder" + skinToneNum));
+		Image scaledEmotion5 = emotion5.getScaledInstance(width/9, height/7, Image.SCALE_SMOOTH);
+		ImageIcon emotion5Icon = new ImageIcon(scaledEmotion5);
+		JLabel emotion5Label = new JLabel();
+		emotion5Label.setIcon(emotion5Icon);
+		emotion5Label.setHorizontalTextPosition(JLabel.CENTER);
+		emotion5Label.setVerticalTextPosition(JLabel.BOTTOM);
+		emotion5Label.setPreferredSize(new Dimension(width/9, height/6));
+		emotion5Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				emotion = "/louder/louder";
+				((JLabel) Top.getComponent(0)).setIcon(updateUserIcon());
+			}
+		});
+		emotionPane.add(emotion5Label);
+		
+		BufferedImage emotion6 = ImageIO.read(new File(gender + "/stressed/stressed" + skinToneNum));
+		Image scaledEmotion6 = emotion6.getScaledInstance(width/9, height/7, Image.SCALE_SMOOTH);
+		ImageIcon emotion6Icon = new ImageIcon(scaledEmotion6);
+		JLabel emotion6Label = new JLabel();
+		emotion6Label.setIcon(emotion6Icon);
+		emotion6Label.setHorizontalTextPosition(JLabel.CENTER);
+		emotion6Label.setVerticalTextPosition(JLabel.BOTTOM);
+		emotion6Label.setPreferredSize(new Dimension(width/9, height/6));
+		emotion6Label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				emotion = "/stressed/stressed";
+				((JLabel) Top.getComponent(0)).setIcon(updateUserIcon());
+			}
+		});
+		emotionPane.add(emotion6Label);
 		
 		
 		// bottom toolbar
