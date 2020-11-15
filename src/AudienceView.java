@@ -20,6 +20,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 public class AudienceView extends JFrame {
 	/**
@@ -35,6 +36,8 @@ public class AudienceView extends JFrame {
 	String gender = "./images/emoji/person";
 	String emotion = "/default/person";
 	String skinToneNum = "0.png";
+	
+	Boolean emojiVis = false;
 
 	public AudienceView() throws IOException {
 		
@@ -160,7 +163,7 @@ public class AudienceView extends JFrame {
 		
 		// emoji selection pane
 		JLayeredPane emojiPane = new JLayeredPane();
-		emojiPane.setOpaque(true);
+		//emojiPane.setOpaque(true);
 		emojiPane.setBackground(new Color(102, 255, 0, 255));
 		emojiPane.setPreferredSize(new Dimension(width, height/6));
 		Bottom.add(emojiPane);
@@ -170,7 +173,7 @@ public class AudienceView extends JFrame {
 		
 		// gender selection pane
 		JPanel genderPane = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-		genderPane.setOpaque(true);
+		//genderPane.setOpaque(true);
 		genderPane.setBackground(new Color(255, 0, 255, 255));
 		genderPane.setPreferredSize(new Dimension(width, height/6));
 		emojiPane.add(genderPane, "genderPane");
@@ -231,7 +234,7 @@ public class AudienceView extends JFrame {
 		
 		// skin tone selection pane
 		JPanel skinTonePane = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-		skinTonePane.setOpaque(true);
+		//skinTonePane.setOpaque(true);
 		skinTonePane.setBackground(new Color(0, 255, 255, 255));
 		skinTonePane.setPreferredSize(new Dimension(width, height/6));
 		emojiPane.add(skinTonePane, "skinTonePane");
@@ -342,7 +345,7 @@ public class AudienceView extends JFrame {
 		
 		// emotion selection pane
 		JPanel emotionPane = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-		emotionPane.setOpaque(true);
+		//emotionPane.setOpaque(true);
 		emotionPane.setBackground(Color.RED);
 		emotionPane.setPreferredSize(new Dimension(width, height/6));
 		emojiPane.add(emotionPane, "emotionPane");
@@ -450,12 +453,35 @@ public class AudienceView extends JFrame {
 		});
 		emotionPane.add(emotion6Label);
 		
+		// cheating white pane
+		JPanel whitePane = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+		//genderPane.setOpaque(true);
+		whitePane.setBackground(new Color(255, 255, 255, 255));
+		whitePane.setPreferredSize(new Dimension(width, height/6));
+		emojiPane.add(whitePane, "whitePane");
+		emojiPane.moveToFront(whitePane);
+		whitePane.setVisible(true);
 		
 		// bottom toolbar
 		BufferedImage bottomBar = ImageIO.read(new File("./images/bottomBar.png"));
 		Image scaledBottom = bottomBar.getScaledInstance(width, height/10, Image.SCALE_SMOOTH);
 		ImageIcon imageIcon = new ImageIcon(scaledBottom);
 		JLabel bottomBarLabel = new JLabel(imageIcon);
+		bottomBarLabel.setVerticalAlignment(SwingConstants.BOTTOM);
+		bottomBarLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int x=e.getX();
+				if (x >= 2.5*width/11 && x <= 3*width/11) {
+					// TODO: a thing
+					whitePane.setVisible(emojiVis);
+					skinTonePane.setVisible(!emojiVis);
+					genderPane.setVisible(!emojiVis);
+					emotionPane.setVisible(!emojiVis);
+					emojiVis = !emojiVis;
+				}
+			}
+		});
 		bottomBarLabel.setSize(200, 80);
 		Bottom.add(bottomBarLabel);
 		
