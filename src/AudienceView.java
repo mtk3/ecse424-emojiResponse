@@ -38,6 +38,7 @@ public class AudienceView extends JFrame {
 	String skinToneNum = "0.png";
 	
 	Boolean emojiVis = false;
+	Boolean questionVis = false;
 
 	public AudienceView() throws IOException {
 		
@@ -163,7 +164,6 @@ public class AudienceView extends JFrame {
 		
 		// emoji selection pane
 		JLayeredPane emojiPane = new JLayeredPane();
-		//emojiPane.setOpaque(true);
 		emojiPane.setBackground(new Color(102, 255, 0, 255));
 		emojiPane.setPreferredSize(new Dimension(width, height/6));
 		Bottom.add(emojiPane);
@@ -173,11 +173,10 @@ public class AudienceView extends JFrame {
 		
 		// gender selection pane
 		JPanel genderPane = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-		//genderPane.setOpaque(true);
 		genderPane.setBackground(new Color(255, 0, 255, 255));
 		genderPane.setPreferredSize(new Dimension(width, height/6));
 		emojiPane.add(genderPane, "genderPane");
-		emojiPane.moveToFront(genderPane);
+		genderPane.setVisible(emojiVis);
 		
 		BufferedImage gender1 = ImageIO.read(new File("./images/emoji/person" + emotion + skinToneNum));
 		Image scaledGender1 = gender1.getScaledInstance(width/9, height/7, Image.SCALE_SMOOTH);
@@ -230,15 +229,13 @@ public class AudienceView extends JFrame {
 		});
 		genderPane.add(gender3Label);
 		
-				
 		
 		// skin tone selection pane
 		JPanel skinTonePane = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-		//skinTonePane.setOpaque(true);
 		skinTonePane.setBackground(new Color(0, 255, 255, 255));
 		skinTonePane.setPreferredSize(new Dimension(width, height/6));
 		emojiPane.add(skinTonePane, "skinTonePane");
-		emojiPane.moveToFront(skinTonePane);
+		skinTonePane.setVisible(emojiVis);
 		
 		BufferedImage skinTone0 = ImageIO.read(new File(gender + emotion + "0.png"));
 		Image scaledSkinTone0 = skinTone0.getScaledInstance(width/9, height/7, Image.SCALE_SMOOTH);
@@ -345,11 +342,11 @@ public class AudienceView extends JFrame {
 		
 		// emotion selection pane
 		JPanel emotionPane = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-		//emotionPane.setOpaque(true);
 		emotionPane.setBackground(Color.RED);
 		emotionPane.setPreferredSize(new Dimension(width, height/6));
 		emojiPane.add(emotionPane, "emotionPane");
-		emojiPane.moveToFront(emotionPane);
+		//emojiPane.moveToFront(emotionPane);
+		emotionPane.setVisible(emojiVis);
 		
 		BufferedImage emotion1 = ImageIO.read(new File(gender + "/default/person" + skinToneNum));
 		Image scaledEmotion1 = emotion1.getScaledInstance(width/9, height/7, Image.SCALE_SMOOTH);
@@ -455,44 +452,23 @@ public class AudienceView extends JFrame {
 		
 		// cheating white pane
 		JPanel whitePane = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-		//genderPane.setOpaque(true);
 		whitePane.setBackground(new Color(255, 255, 255, 255));
 		whitePane.setPreferredSize(new Dimension(width, height/6));
 		emojiPane.add(whitePane, "whitePane");
 		emojiPane.moveToFront(whitePane);
-		whitePane.setVisible(true);
+		whitePane.setVisible(!emojiVis);
 		
-		// bottom toolbar
-		BufferedImage bottomBar = ImageIO.read(new File("./images/bottomBar.png"));
-		Image scaledBottom = bottomBar.getScaledInstance(width, height/10, Image.SCALE_SMOOTH);
-		ImageIcon imageIcon = new ImageIcon(scaledBottom);
-		JLabel bottomBarLabel = new JLabel(imageIcon);
-		bottomBarLabel.setVerticalAlignment(SwingConstants.BOTTOM);
-		bottomBarLabel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				int x=e.getX();
-				if (x >= 2.5*width/11 && x <= 3*width/11) {
-					// TODO: a thing
-					whitePane.setVisible(emojiVis);
-					skinTonePane.setVisible(!emojiVis);
-					genderPane.setVisible(!emojiVis);
-					emotionPane.setVisible(!emojiVis);
-					emojiVis = !emojiVis;
-				}
-			}
-		});
-		bottomBarLabel.setSize(200, 80);
-		Bottom.add(bottomBarLabel);
-		
-
 		
 		// emoji Selection Buttons
 		JPanel emojiSelectionButtons = new JPanel();
+		emojiSelectionButtons.setBackground(Color.WHITE);
+		emojiSelectionButtons.setOpaque(false);
 		emojiSelectionButtons.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		emojiSelectionButtons.setSize(width/12,height/12);
-		getContentPane().add(emojiSelectionButtons, BorderLayout.WEST);
 		emojiSelectionButtons.setLayout(new GridLayout(3, 1, 0, 0));
+		emojiSelectionButtons.setVisible(emojiVis);
+		getContentPane().add(emojiSelectionButtons, BorderLayout.WEST);
+		
 				
 		JButton btnNewButton = new JButton("Emotion");
 		btnNewButton.addMouseListener(new MouseAdapter() {
@@ -521,8 +497,65 @@ public class AudienceView extends JFrame {
 		});
 		emojiSelectionButtons.add(btnNewButton_2);
 		
-		JLabel lblQuestionPending = new JLabel("Question Pending");
-		getContentPane().add(lblQuestionPending, BorderLayout.EAST);
+		// Question Pending Notification
+		BufferedImage buffQuestion = ImageIO.read(new File("./images/questionPending.png"));
+		Image scaledQuestion = buffQuestion.getScaledInstance(width/10, height/6, Image.SCALE_SMOOTH);
+		ImageIcon questionIcon = new ImageIcon(scaledQuestion);
+		JLabel questionLabel = new JLabel(questionIcon);
+		JPanel questionPendingPanel = new JPanel();
+		questionPendingPanel.setBackground(Color.WHITE);
+		questionPendingPanel.add(questionLabel);
+		questionPendingPanel.setVisible(questionVis);
+		getContentPane().add(questionPendingPanel, BorderLayout.EAST);
+		
+		// bottom toolbar
+		BufferedImage bottomBar = ImageIO.read(new File("./images/bottomBar.png"));
+		Image scaledBottom = bottomBar.getScaledInstance(width, height/10, Image.SCALE_SMOOTH);
+		ImageIcon imageIcon = new ImageIcon(scaledBottom);
+		BufferedImage bottomBarQuestion = ImageIO.read(new File("./images/bottomBarQuestion.png"));
+		Image scaledBottomQuestion = bottomBarQuestion.getScaledInstance(width, height/10, Image.SCALE_SMOOTH);
+		ImageIcon imageIconQuestion = new ImageIcon(scaledBottomQuestion);
+		JLabel bottomBarLabel = new JLabel(imageIcon);
+		bottomBarLabel.setVerticalAlignment(SwingConstants.BOTTOM);
+		bottomBarLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int x=e.getX();
+				if (x >= 2.5*width/11 && x <= 3*width/11) {
+					// TODO: Toggle the emotion selection panes
+					if(emojiVis) {
+						emojiPaneCardLayout.show(emojiPane, "whitePane");
+						btnNewButton.setVisible(false);
+						btnNewButton_1.setVisible(false);
+						btnNewButton_2.setVisible(false);
+						emojiSelectionButtons.setVisible(false);
+						
+					} else {
+						emojiPaneCardLayout.show(emojiPane, "genderPane");
+						emojiPaneCardLayout.show(emojiPane, "skinTonePane");
+						emojiPaneCardLayout.show(emojiPane, "emotionPane");
+						btnNewButton.setVisible(true);
+						btnNewButton_1.setVisible(true);
+						btnNewButton_2.setVisible(true);
+						emojiSelectionButtons.setVisible(true);
+						
+					}
+					emojiVis = !emojiVis;
+				}
+				if (x >= 3.45*width/11 && x <= 4*width/11) {
+					if(questionVis) {
+						questionPendingPanel.setVisible(false);
+						bottomBarLabel.setIcon(imageIcon);
+					} else {
+						questionPendingPanel.setVisible(true);
+						bottomBarLabel.setIcon(imageIconQuestion);
+					}
+					questionVis = !questionVis;
+				}
+			}
+		});
+		//bottomBarLabel.setSize(200, 80);
+		Bottom.add(bottomBarLabel);	
 			
 	}
 	
