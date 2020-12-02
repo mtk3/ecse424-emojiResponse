@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -162,6 +163,7 @@ public class AudienceView extends JFrame {
 		
 		// emoji selection pane
 		JLayeredPane emojiPane = new JLayeredPane();
+		emojiPane.setName("emojiPane");
 		emojiPane.setBackground(new Color(102, 204, 255, 255));
 		emojiPane.setPreferredSize(new Dimension(width, height/6));
 		Bottom.add(emojiPane);
@@ -169,8 +171,9 @@ public class AudienceView extends JFrame {
 		CardLayout emojiPaneCardLayout = (CardLayout)emojiPane.getLayout();
 		
 		
-		// gender selection pane
+		// TODO: gender selection pane
 		JPanel genderPane = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+		genderPane.setName("genderPane");
 		genderPane.setBackground(new Color(102, 204, 255, 255));
 		genderPane.setPreferredSize(new Dimension(width, height/6));
 		emojiPane.add(genderPane, "genderPane");
@@ -189,6 +192,10 @@ public class AudienceView extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				gender = "./images/emoji/person";
 				((JLabel) Top.getComponent(0)).setIcon(updateUserIcon());
+				// 0 is white, 1 is gender, 2 skin, 3 is emotion
+				JPanel skinTone = (JPanel) ((JLayeredPane) Bottom.getComponent(0)).getComponent(2);
+				JPanel emotion = (JPanel) ((JLayeredPane) Bottom.getComponent(0)).getComponent(3);
+				updateWithNewGender(skinTone, emotion);
 			}
 		});
 		genderPane.add(gender1Label);
@@ -206,6 +213,9 @@ public class AudienceView extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				gender = "./images/emoji/man";
 				((JLabel) Top.getComponent(0)).setIcon(updateUserIcon());
+				JPanel skinTone = (JPanel) ((JLayeredPane) Bottom.getComponent(0)).getComponent(2);
+				JPanel emotion = (JPanel) ((JLayeredPane) Bottom.getComponent(0)).getComponent(3);
+				updateWithNewGender(skinTone, emotion);
 			}
 		});
 		genderPane.add(gender2Label);
@@ -223,13 +233,17 @@ public class AudienceView extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				gender = "./images/emoji/woman";
 				((JLabel) Top.getComponent(0)).setIcon(updateUserIcon());
+				JPanel skinTone = (JPanel) ((JLayeredPane) Bottom.getComponent(0)).getComponent(2);
+				JPanel emotion = (JPanel) ((JLayeredPane) Bottom.getComponent(0)).getComponent(3);
+				updateWithNewGender(skinTone, emotion);
 			}
 		});
 		genderPane.add(gender3Label);
 		
 		
-		// skin tone selection pane
+		// TODO: skin tone selection pane
 		JPanel skinTonePane = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+		skinTonePane.setName("skinTonePane");
 		skinTonePane.setBackground(new Color(102, 204, 255, 255));
 		skinTonePane.setPreferredSize(new Dimension(width, height/6));
 		emojiPane.add(skinTonePane, "skinTonePane");
@@ -248,6 +262,10 @@ public class AudienceView extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				skinToneNum = "0.png";
 				((JLabel) Top.getComponent(0)).setIcon(updateUserIcon());
+				// 0 is white, 1 is gender, 2 skin, 3 is emotion
+				JPanel gender = (JPanel) ((JLayeredPane) Bottom.getComponent(0)).getComponent(1);
+				JPanel emotion = (JPanel) ((JLayeredPane) Bottom.getComponent(0)).getComponent(3);
+				updateWithNewSkinTone(gender, emotion);
 			}
 		});
 		skinTonePane.add(skinTone0Label);
@@ -265,6 +283,9 @@ public class AudienceView extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				skinToneNum = "1.png";
 				((JLabel) Top.getComponent(0)).setIcon(updateUserIcon());
+				JPanel gender = (JPanel) ((JLayeredPane) Bottom.getComponent(0)).getComponent(1);
+				JPanel emotion = (JPanel) ((JLayeredPane) Bottom.getComponent(0)).getComponent(3);
+				updateWithNewSkinTone(gender, emotion);
 			}
 		});
 		skinTonePane.add(skinTone1Label);
@@ -282,6 +303,9 @@ public class AudienceView extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				skinToneNum = "2.png";
 				((JLabel) Top.getComponent(0)).setIcon(updateUserIcon());
+				JPanel gender = (JPanel) ((JLayeredPane) Bottom.getComponent(0)).getComponent(1);
+				JPanel emotion = (JPanel) ((JLayeredPane) Bottom.getComponent(0)).getComponent(3);
+				updateWithNewSkinTone(gender, emotion);
 			}
 		});
 		skinTonePane.add(skinTone2Label);
@@ -299,6 +323,9 @@ public class AudienceView extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				skinToneNum = "3.png";
 				((JLabel) Top.getComponent(0)).setIcon(updateUserIcon());
+				JPanel gender = (JPanel) ((JLayeredPane) Bottom.getComponent(0)).getComponent(1);
+				JPanel emotion = (JPanel) ((JLayeredPane) Bottom.getComponent(0)).getComponent(3);
+				updateWithNewSkinTone(gender, emotion);
 			}
 		});
 		skinTonePane.add(skinTone3Label);
@@ -316,6 +343,9 @@ public class AudienceView extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				skinToneNum = "4.png";
 				((JLabel) Top.getComponent(0)).setIcon(updateUserIcon());
+				JPanel gender = (JPanel) ((JLayeredPane) Bottom.getComponent(0)).getComponent(1);
+				JPanel emotion = (JPanel) ((JLayeredPane) Bottom.getComponent(0)).getComponent(3);
+				updateWithNewSkinTone(gender, emotion);
 			}
 		});
 		skinTonePane.add(skinTone4Label);
@@ -333,13 +363,17 @@ public class AudienceView extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				skinToneNum = "5.png";
 				((JLabel) Top.getComponent(0)).setIcon(updateUserIcon());
+				JPanel gender = (JPanel) ((JLayeredPane) Bottom.getComponent(0)).getComponent(1);
+				JPanel emotion = (JPanel) ((JLayeredPane) Bottom.getComponent(0)).getComponent(3);
+				updateWithNewSkinTone(gender, emotion);
 			}
 		});
 		skinTonePane.add(skinTone5Label);
 				
 		
-		// emotion selection pane
+		// TODO: emotion selection pane
 		JPanel emotionPane = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+		emotionPane.setName("emotionPane");
 		emotionPane.setBackground(new Color(102, 204, 255, 255));
 		emotionPane.setPreferredSize(new Dimension(width, height/6));
 		emojiPane.add(emotionPane, "emotionPane");
@@ -359,6 +393,10 @@ public class AudienceView extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				emotion = "/default/person";
 				((JLabel) Top.getComponent(0)).setIcon(updateUserIcon());
+				// 0 is white, 1 is gender, 2 skin, 3 is emotion
+				JPanel gender = (JPanel) ((JLayeredPane) Bottom.getComponent(0)).getComponent(1);
+				JPanel skinTone = (JPanel) ((JLayeredPane) Bottom.getComponent(0)).getComponent(2);
+				updateWithNewEmotion(gender, skinTone);
 			}
 		});
 		emotionPane.add(emotion1Label);
@@ -376,6 +414,9 @@ public class AudienceView extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				emotion = "/confused/shrugging";
 				((JLabel) Top.getComponent(0)).setIcon(updateUserIcon());
+				JPanel gender = (JPanel) ((JLayeredPane) Bottom.getComponent(0)).getComponent(1);
+				JPanel skinTone = (JPanel) ((JLayeredPane) Bottom.getComponent(0)).getComponent(2);
+				updateWithNewEmotion(gender, skinTone);
 			}
 		});
 		emotionPane.add(emotion2Label);
@@ -393,6 +434,9 @@ public class AudienceView extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				emotion = "/bored/bored";
 				((JLabel) Top.getComponent(0)).setIcon(updateUserIcon());
+				JPanel gender = (JPanel) ((JLayeredPane) Bottom.getComponent(0)).getComponent(1);
+				JPanel skinTone = (JPanel) ((JLayeredPane) Bottom.getComponent(0)).getComponent(2);
+				updateWithNewEmotion(gender, skinTone);
 			}
 		});
 		emotionPane.add(emotion3Label);
@@ -410,6 +454,9 @@ public class AudienceView extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				emotion = "/question/question";
 				((JLabel) Top.getComponent(0)).setIcon(updateUserIcon());
+				JPanel gender = (JPanel) ((JLayeredPane) Bottom.getComponent(0)).getComponent(1);
+				JPanel skinTone = (JPanel) ((JLayeredPane) Bottom.getComponent(0)).getComponent(2);
+				updateWithNewEmotion(gender, skinTone);
 			}
 		});
 		emotionPane.add(emotion4Label);
@@ -427,6 +474,9 @@ public class AudienceView extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				emotion = "/louder/louder";
 				((JLabel) Top.getComponent(0)).setIcon(updateUserIcon());
+				JPanel gender = (JPanel) ((JLayeredPane) Bottom.getComponent(0)).getComponent(1);
+				JPanel skinTone = (JPanel) ((JLayeredPane) Bottom.getComponent(0)).getComponent(2);
+				updateWithNewEmotion(gender, skinTone);
 			}
 		});
 		emotionPane.add(emotion5Label);
@@ -444,12 +494,16 @@ public class AudienceView extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				emotion = "/stressed/stressed";
 				((JLabel) Top.getComponent(0)).setIcon(updateUserIcon());
+				JPanel gender = (JPanel) ((JLayeredPane) Bottom.getComponent(0)).getComponent(1);
+				JPanel skinTone = (JPanel) ((JLayeredPane) Bottom.getComponent(0)).getComponent(2);
+				updateWithNewEmotion(gender, skinTone);
 			}
 		});
 		emotionPane.add(emotion6Label);
 		
-		// cheating white pane
+		// TODO: cheating white pane
 		JPanel whitePane = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+		whitePane.setName("whitePane");
 		whitePane.setBackground(new Color(255, 255, 255, 255));
 		whitePane.setPreferredSize(new Dimension(width, height/6));
 		emojiPane.add(whitePane, "whitePane");
@@ -571,6 +625,73 @@ public class AudienceView extends JFrame {
 		}
 				
 	}
+	
+	public void updateWithNewGender(JPanel skinTone, JPanel emotion) {
+				
+		((JLabel) skinTone.getComponent(0)).setIcon(updateSelectionIcon(this.gender, this.emotion, "0.png"));
+		((JLabel) skinTone.getComponent(1)).setIcon(updateSelectionIcon(this.gender, this.emotion, "1.png"));
+		((JLabel) skinTone.getComponent(2)).setIcon(updateSelectionIcon(this.gender, this.emotion, "2.png"));
+		((JLabel) skinTone.getComponent(3)).setIcon(updateSelectionIcon(this.gender, this.emotion, "3.png"));
+		((JLabel) skinTone.getComponent(4)).setIcon(updateSelectionIcon(this.gender, this.emotion, "4.png"));
+		((JLabel) skinTone.getComponent(5)).setIcon(updateSelectionIcon(this.gender, this.emotion, "5.png"));
+		
+		((JLabel) emotion.getComponent(0)).setIcon(updateSelectionIcon(this.gender, "/default/person", this.skinToneNum));
+		((JLabel) emotion.getComponent(1)).setIcon(updateSelectionIcon(this.gender,"/confused/shrugging", this.skinToneNum));
+		((JLabel) emotion.getComponent(2)).setIcon(updateSelectionIcon(this.gender, "/bored/bored", this.skinToneNum));
+		((JLabel) emotion.getComponent(3)).setIcon(updateSelectionIcon(this.gender, "/question/question", this.skinToneNum));
+		((JLabel) emotion.getComponent(4)).setIcon(updateSelectionIcon(this.gender, "/louder/louder", this.skinToneNum));
+		((JLabel) emotion.getComponent(5)).setIcon(updateSelectionIcon(this.gender, "/stressed/stressed", this.skinToneNum));
+		
+	}
+	
+	public void updateWithNewSkinTone(JPanel gender, JPanel emotion) {
+		
+		((JLabel) gender.getComponent(0)).setIcon(updateSelectionIcon("./images/emoji/person", this.emotion, this.skinToneNum));
+		((JLabel) gender.getComponent(1)).setIcon(updateSelectionIcon("./images/emoji/man", this.emotion, this.skinToneNum));
+		((JLabel) gender.getComponent(2)).setIcon(updateSelectionIcon("./images/emoji/woman", this.emotion, this.skinToneNum));
+		
+		((JLabel) emotion.getComponent(0)).setIcon(updateSelectionIcon(this.gender, "/default/person", this.skinToneNum));
+		((JLabel) emotion.getComponent(1)).setIcon(updateSelectionIcon(this.gender,"/confused/shrugging", this.skinToneNum));
+		((JLabel) emotion.getComponent(2)).setIcon(updateSelectionIcon(this.gender, "/bored/bored", this.skinToneNum));
+		((JLabel) emotion.getComponent(3)).setIcon(updateSelectionIcon(this.gender, "/question/question", this.skinToneNum));
+		((JLabel) emotion.getComponent(4)).setIcon(updateSelectionIcon(this.gender, "/louder/louder", this.skinToneNum));
+		((JLabel) emotion.getComponent(5)).setIcon(updateSelectionIcon(this.gender, "/stressed/stressed", this.skinToneNum));
+		
+	}
+	
+	public void updateWithNewEmotion(JPanel gender, JPanel skinTone) {
+		
+		((JLabel) gender.getComponent(0)).setIcon(updateSelectionIcon("./images/emoji/person", this.emotion,this.skinToneNum));
+		((JLabel) gender.getComponent(1)).setIcon(updateSelectionIcon("./images/emoji/man", this.emotion, this.skinToneNum));
+		((JLabel) gender.getComponent(2)).setIcon(updateSelectionIcon("./images/emoji/woman", this.emotion, this.skinToneNum));
+		
+		((JLabel) skinTone.getComponent(0)).setIcon(updateSelectionIcon(this.gender, this.emotion, "0.png"));
+		((JLabel) skinTone.getComponent(1)).setIcon(updateSelectionIcon(this.gender, this.emotion, "1.png"));
+		((JLabel) skinTone.getComponent(2)).setIcon(updateSelectionIcon(this.gender, this.emotion, "2.png"));
+		((JLabel) skinTone.getComponent(3)).setIcon(updateSelectionIcon(this.gender, this.emotion, "3.png"));
+		((JLabel) skinTone.getComponent(4)).setIcon(updateSelectionIcon(this.gender, this.emotion, "4.png"));
+		((JLabel) skinTone.getComponent(5)).setIcon(updateSelectionIcon(this.gender, this.emotion, "5.png"));
+		
+	}
+	
+	public ImageIcon updateSelectionIcon(String newGender, String newEmotion, String newSkinToneNum){
+		
+		BufferedImage newBuffImage;
+		try {
+			newBuffImage = ImageIO.read(new File(newGender + newEmotion + newSkinToneNum));
+			Image scaledImage = newBuffImage.getScaledInstance(width/9, height/7, Image.SCALE_SMOOTH);
+			ImageIcon newIcon = new ImageIcon(scaledImage);
+			return newIcon;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	
+	
+	
+	
 	
 	
 }
