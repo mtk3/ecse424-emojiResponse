@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
@@ -24,17 +25,19 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Popup;
 import javax.swing.PopupFactory;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 import javax.swing.JToggleButton;
-
+import javax.swing.Timer;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javafx.application.Application;
@@ -43,38 +46,44 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.util.Duration;
+import java.util.Random;
 
 
-
-public class PresenterView extends JFrame implements Initializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class PresenterView extends JFrame implements ActionListener{
 	
+	private static final long serialVersionUID = 1L;
+	public int notificationCount; 
 	// variables
+	
+
+	Random rand = new Random();
+	
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	int height = screenSize.height;
 	int width = screenSize.width;
-	
+	public JLabel bottomBar;
 	String gender = "./images/emoji/person";
 	String emotion = "/default/person";
 	String skinToneNum = "0.png";
-	
-	Boolean notificationToggle = true;
+	String[] notifications= {"Sam just changed their emoji to Happy","Robin just changed their emoji to Confused","Jennifer just changed their emoji to Unhappy","Sam just changed their emoji to Unhappy","Tom just changed their emoji to Happy","Bob just changed their emoji to Confused"}; 
+	Boolean notificationToggle = false;
 	Boolean statsToggle = true;
 
 	public PresenterView() throws IOException {
-		
-		
-				
 		
 		// background setup
 		this.setSize(screenSize);
 		getContentPane().setBackground(Color.WHITE);
 		
 		// screenshare image
-		BufferedImage myPicture = ImageIO.read(new File("./images/background.jpg"));
+		BufferedImage myPicture = null;
+	    try {
+	    	 myPicture = ImageIO.read(new File("./images/background.jpg"));
+	    } catch (IOException e) {
+	        // TODO Auto-generated catch block
+	        e.printStackTrace();
+	    }
+		
 		JLabel picLabel = new JLabel(new ImageIcon(myPicture));
 		getContentPane().add(picLabel);
 		
@@ -202,28 +211,11 @@ public class PresenterView extends JFrame implements Initializable {
 		ImageIcon hideNotificationsIcon = new ImageIcon(bottomBarHideNotifications);
 		ImageIcon hideStatsIcon = new ImageIcon(bottomBarHideStats);
 		
-		JLabel bottomBar = new JLabel(presenterIcon);
-		//add(bottomBar);
-		//JLabel notification = new JLabel();
+		JLabel bottomBar = new JLabel(hideNotificationsIcon);
 		
 		bottomBar.setPreferredSize(new Dimension(1920, 144));
 		getContentPane().add(bottomBar, BorderLayout.SOUTH);
 		
-			
-	/*
-		Notifications notification1 = Notifications.create()
-				.title("Notification")
-				.text("Zabre is now Happy")
-				.graphic(null)
-				.hideAfter(Duration.seconds(5))
-				.position(Pos.BOTTOM_RIGHT);
-				
-				notification1.showConfirm();
-				
-		*/
-		
-			
-						
 				
 		bottomBar.addMouseListener(new MouseAdapter() {
 			@Override
@@ -234,6 +226,7 @@ public class PresenterView extends JFrame implements Initializable {
 					if(notificationToggle == true &  statsToggle == true) {
 						
 						bottomBar.setIcon(hideNotificationsIcon);
+						
 						notificationToggle = false;
 						
 					} 
@@ -241,6 +234,7 @@ public class PresenterView extends JFrame implements Initializable {
 						
 						bottomBar.setIcon(presenterIcon);
 						notificationToggle = true;
+						
 						
 					}
 					else if (notificationToggle == true &  statsToggle == false) {
@@ -287,46 +281,23 @@ public class PresenterView extends JFrame implements Initializable {
 				}
 			}
 		});
-		//	while (notificationToggle){
-			try {
-				TimeUnit.SECONDS.sleep(5);
-			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}	
-			JFrame frame = new JFrame("Border Layout");
-	        JButton button;
-	        button = new JButton("Hide");
-	        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	        //frame.getContentPane().add(bottomBar); 
-	        frame.pack();
-	        frame.setLocationRelativeTo(null);  // *** this will center your app ***
-	        frame.getContentPane().add(button,BorderLayout.EAST);
-	        frame.setSize(500,100); 
-	        frame.setVisible(true);
-	       // PopupFactory factory = PopupFactory.getSharedInstance();
-	       // Popup popup = factory.getPopup(null, frame, 10,10);
-	      //  popup.show();
-	        frame.setVisible(true);
-	        try {
-				TimeUnit.SECONDS.sleep(5);
-			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}	
-	        frame.setVisible(false);
-	       // popup.hide(); 
-		//	}
-			
-	}
-
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
+		Timer timer = new Timer(1000, this);
+        timer.setInitialDelay(5000);
+        timer.start(); 
 		
 	}
 	
-	
-	
-	
-}
+	        public void actionPerformed(ActionEvent e) {
+	        	int notificationDelay = 4;
+	            if (notificationToggle) {
+
+	                notificationCount +=1;
+
+	                if (notificationCount > notificationDelay) {
+	                	int random_integer = rand.nextInt(5);
+	                	JOptionPane.showMessageDialog(getContentPane(),notifications[random_integer]);
+	                    notificationCount = 0;
+	                }
+	            }
+	        }
+		 }
